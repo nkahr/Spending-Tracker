@@ -5,6 +5,9 @@
 
 <p>Merchant: <%= transaction.merchant.name() %></p>
 <p>Amount: <%= transaction.amount() %> </p>
+<p>Date: <%= transaction.time() %> </p>
+<p>Tag: <%= transaction.tag.label %> </p>
+
 <hr>
 
 <% end %>

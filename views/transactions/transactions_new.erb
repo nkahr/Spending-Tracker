@@ -7,6 +7,10 @@
     <p>Amount: <input type="number" name="amount"></p>
   </label>
 
+  <label>
+    <p>Date: <input type="text" name="time" value= <%= Time.new.to_s.split(" ").first %> ></p>
+  </label>
+
  <label>
     <p>
     Tag: <select name="tag_id">
@@ -28,7 +32,8 @@
     </p>
   </label>
 
- 
+
+
   <input type = "submit" value = "Submit"/>
 
 

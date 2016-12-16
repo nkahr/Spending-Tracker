@@ -22,6 +22,7 @@ CREATE TABLE tags (
 CREATE TABLE transactions (
   id SERIAL8,
   amount INT8,
+  time VARCHAR(255),
   merchant_id INT8 references merchants(id) ON DELETE CASCADE,
   user_id INT8 references users(id) ON DELETE CASCADE, 
   tag_id INT8 references tags(id) ON DELETE CASCADE

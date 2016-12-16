@@ -29,6 +29,7 @@ post '/users/:id/transactions' do
   @transaction = Transaction.new(params)
   @transaction.save()
   erb(:"transactions/transactions_create")
+  redirect to("/users/#{params["user_id"]}/transactions")
 end
 
 #show (when you click on a single transaction)
