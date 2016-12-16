@@ -15,7 +15,7 @@ class Tag
     @id = result[0]["id"].to_i
   end
 
-  def all()
+  def self.all()
     sql = "SELECT * FROM tags;"
     return Tag.get_all(sql)
   end

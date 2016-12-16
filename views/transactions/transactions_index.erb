@@ -1,0 +1,10 @@
+
+<hr>
+<p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
+<% for transaction in @transactions %> 
+
+<p>Merchant: <%= transaction.merchant.name() %></p>
+<p>Amount: <%= transaction.amount() %> </p>
+<hr>
+
+<% end %>
