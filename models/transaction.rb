@@ -61,5 +61,16 @@ class Transaction
     SqlRunner.run(sql)
   end
 
+  def self.update(options)
+    sql = "UPDATE transactions SET 
+      amount = '#{options['amount']}',
+      tag_id = '#{options['tag_id']}',
+      time = '#{options['time']}',
+      merchant_id = #{options['merchant_id']},
+      user_id = #{options['user_id']}
+      WHERE id = #{options['id']};"
+    SqlRunner.run(sql)
+  end
+
 
 end

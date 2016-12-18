@@ -11,6 +11,13 @@
 <p>Amount: <%= transaction.amount() %> </p>
 <p>Date: <%= transaction.time() %> </p>
 <p>Tag: <%= transaction.tag.label %> </p>
+<p><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit">Edit</a></p>
+
+<form action= "/users/<%= @user.id %>/transactions/<%= transaction.id %>/delete" method= "post">
+<label>
+  <p><input type="submit" value="DELETE"></p>
+</label>
+</form>
 
 <hr>
 

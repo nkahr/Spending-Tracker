@@ -30,7 +30,7 @@ end
 
 #destroy
 post '/users/:id/delete' do 
-  @id = params["id"]
+  @id = params["id"].to_i
   User.delete(@id)
   redirect to("/users")
 end

@@ -1,0 +1,11 @@
+<p>Merchant: <%= Merchant.find_by_id(@transaction.merchant_id).name %></p>
+<p>Amount: <%= @transaction.amount %> </p>
+<p>Tag: <%= Tag.find_by_id(@transaction.tag_id).label %> </p>
+
+<!-- <p><a href="/users/<%= @user_id %>/transactions/<%= @id %>/edit">Edit Transaction</a></p> -->
+
+<form action= "/users/<%= @user_id %>/transactions/<%= @id %>/delete" method= "post">
+<label>
+  <p><input type="submit" value="DELETE"></p>
+</label>
+</form>

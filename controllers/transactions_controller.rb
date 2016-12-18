@@ -8,7 +8,6 @@ require_relative( '../models/tag.rb' )
 require_relative( '../models/calc.rb' )
 require_relative( '../models/chart.rb' )
 
-
 #index (all transactions for a single user)
 get '/users/:id/transactions' do 
   @user= User.find_by_id(params["id"])
@@ -36,24 +35,38 @@ post '/users/:id/transactions' do
 end
 
 #show (when you click on a single transaction)
-# get '/users/:id/transaction/:t_id' do 
-#   @transaction = Transaction.find_by_id(params["t_id"]) #havent made this method yet 
-#   erb(:"transactions/transactions_show")
-# end
+get '/users/:id/transactions/:t_id' do 
+  @user_id = params["id"].to_i
+  @transaction = Transaction.find_by_id(params["t_id"])
+  @id = params["t_id"].to_i
+  erb(:"transactions/transactions_show")
+end
 
-# #destroy
-# post '/users/:id/transactions/:t_id/delete' do 
-#   @id = params["t_id"] #transaction id 
-#   Transaction.delete(@id) #havent made this method yet either
-#   redirect to("/users/:id/transactions")
-# end
+#destroy
+post '/users/:id/transactions/:t_id/delete' do 
+  @id = params["t_id"].to_i #transaction id 
+  @user_id = params["id"].to_i
+  Transaction.delete(@id) 
+  redirect to("/users/#{@user_id}/transactions")
+end
 
 # #edit 
-# get '/users/:id/transactions/:t_id/edit' do 
-  
-# end
+get '/users/:id/transactions/:t_id/edit' do 
+  @user = User.find_by_id(params["id"])
+  @transaction = Transaction.find_by_id(params["t_id"])
+  @merchant = Merchant.find_by_id(@transaction.merchant_id)
+  @merchants = Merchant.all
+  @merchant_name = Merchant.find_by_id(@transaction.merchant_id).name
+  @tag_label = Tag.find_by_id(@transaction.tag_id).label
+  @tags = Tag.all
+  @tag = Tag.find_by_id(@transaction.tag_id)
+  erb(:"transactions/transactions_edit")
+end
 
 # #update 
-# post '/users/:id/transactions/:t_id' do 
-
-# end
+post '/users/:id/transactions/:t_id' do 
+  params["user_id"] = params["id"]
+  params["id"] = params["t_id"]
+  params["t_id"] = nil
+  Transaction.update(params)
+end

@@ -2,6 +2,7 @@ require_relative('transaction.rb')
 require_relative('merchant.rb')
 require_relative('user.rb')
 require('pg')
+require 'date'
 
 class Calc
 
@@ -32,5 +33,19 @@ class Calc
     transactions_array.sort!{|transaction1, transaction2| Date.parse(transaction1.time) <=> Date.parse(transaction2.time)}
     return transactions_array
   end
+
+  # def self.group_by_month(transactions_array)
+
+  #   dates = transactions_array.map{|transaction| Date.parse(transaction.time)}
+
+  #   Hash[
+  #     dates.group_by(&:year).map{|y, items|
+  #       [y, items.group_by{|d| d.month('%B')}]
+  #     }
+  #   ]
+
+  #   dates_by_year = dates.group_by(&:year)
+  #   dates_by_year.map{|year, date| [year, date.group_by{|date| date.month}]}
+  # end
 
 end

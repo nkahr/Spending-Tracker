@@ -1,0 +1,34 @@
+<h1>Edit Transaction</h1>
+<form action="/users/<%=@user.id%>/transactions/<%=@transaction.id%>" method="post">
+  
+<label>
+  <p>Amount : <input type = "number" name = "amount" value="<%=@transaction.amount%>"></p>
+</label>
+
+<label>
+  <p>
+    Merchant : <select name = "merchant_id">
+    <% for merchant in @merchants %>
+    <option <%= "selected" if merchant.name == @merchant_name %> value = <%=merchant.id%>><%=merchant.name%></option>
+    <% end %>
+    </select>
+  </p>
+</label>
+
+<label>
+  <p>
+    Tag : <select name = "tag_id">
+    <% for tag in @tags %>
+    <option <%= "selected" if tag.label == @tag_label %> value = <%=tag.id%>><%=tag.label%></option>
+    <% end %>
+    </select>  
+  </p>
+</label>
+
+<label>
+  <p>Date : <input type = "text" name = "time" value="<%=@transaction.time%>"></p>
+</label>
+
+<input type = "submit" value = "Submit Changes"/>
+
+</form>
