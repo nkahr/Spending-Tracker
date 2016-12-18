@@ -18,4 +18,19 @@ class Calc
     return Calc.total(selection)
   end
 
+  def self.sort_by_amount_asc(transactions_array)
+    transactions_array.sort!{|transaction1, transaction2| transaction1.amount <=> transaction2.amount}
+    return transactions_array
+  end
+
+  def self.sort_by_amount_desc(transactions_array)
+    transactions_array.sort!{|transaction1, transaction2| transaction2.amount <=> transaction1.amount}
+    return transactions_array
+  end
+
+  def self.sort_by_date(transactions_array)
+    transactions_array.sort!{|transaction1, transaction2| Date.parse(transaction1.time) <=> Date.parse(transaction2.time)}
+    return transactions_array
+  end
+
 end

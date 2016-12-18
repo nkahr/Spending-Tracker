@@ -5,12 +5,13 @@ require_relative('transaction.rb')
 class User
 
   attr_reader :id 
-  attr_accessor :username, :funds
+  attr_accessor :username, :funds#, :limit
 
   def initialize(options)
     @id = options["id"].to_i unless options["id"].nil?
     @username = options["username"]
     @funds = options["funds"].to_i #becomes zero if no funds are included 
+#    @limit = options["limit"].to_i unless options["limit"].nil?
   end
 
   def save()
@@ -77,7 +78,6 @@ class User
     transactions = result.map{|transaction| Transaction.new(transaction)}
     sum = 0
     for transaction in transactions 
-      binding.pry
      sum += transaction.amount()
     end
     return sum
