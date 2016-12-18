@@ -6,6 +6,7 @@ require_relative( '../models/user.rb' )
 require_relative( '../models/transaction.rb' )
 require_relative( '../models/tag.rb' )
 require_relative( '../models/calc.rb' )
+require_relative( '../models/chart.rb' )
 
 
 #index (all transactions for a single user)

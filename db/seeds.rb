@@ -2,6 +2,9 @@ require_relative('../models/merchant.rb')
 require_relative('../models/user.rb')
 require_relative('../models/transaction.rb')
 require_relative('../models/tag.rb')
+require_relative('../models/calc.rb')
+require_relative('../models/chart.rb')
+
 require('pry')
 
 # user1 = User.new({

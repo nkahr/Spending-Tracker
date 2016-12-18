@@ -4,14 +4,14 @@ require_relative('../db/sql_runner.rb')
 class Transaction
 
   attr_reader :id 
-  attr_accessor :user_id, :merchant_id, :amount, :time
+  attr_accessor :user_id, :merchant_id, :amount, :time, :tag_id
 
   def initialize(options)
     @id = options["id"].to_i unless options["id"].nil?
     @time = options["time"]
-    @user_id = options["user_id"]
-    @merchant_id = options["merchant_id"]
-    @tag_id = options["tag_id"] #maybe include unless options["tag_id"].nil?
+    @user_id = options["user_id"].to_i
+    @merchant_id = options["merchant_id"].to_i
+    @tag_id = options["tag_id"].to_i #maybe include unless options["tag_id"].nil?
     @amount = options["amount"].to_i
   end
 

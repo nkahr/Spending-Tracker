@@ -13,4 +13,9 @@ class Calc
    return total
   end
 
+  def self.total_by_id(transactions_array, id)
+    selection = transactions_array.find_all{|transaction| transaction.tag_id == id}
+    return Calc.total(selection)
+  end
+
 end
