@@ -34,18 +34,11 @@ class Calc
     return transactions_array
   end
 
-  # def self.group_by_month(transactions_array)
-
-  #   dates = transactions_array.map{|transaction| Date.parse(transaction.time)}
-
-  #   Hash[
-  #     dates.group_by(&:year).map{|y, items|
-  #       [y, items.group_by{|d| d.month('%B')}]
-  #     }
-  #   ]
-
-  #   dates_by_year = dates.group_by(&:year)
-  #   dates_by_year.map{|year, date| [year, date.group_by{|date| date.month}]}
-  # end
+  def self.group_by_month(transactions_array)
+    dates = transactions_array.map{|transaction| Date.parse(transaction.time)}
+    dates_by_year = dates.group_by(&:year)
+    dates_by_month = dates_by_year.map{|year, date| [year, date.group_by{|date| date.month}]}
+    return dates_by_month
+  end
 
 end
