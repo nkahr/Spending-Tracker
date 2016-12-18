@@ -5,12 +5,14 @@ require_relative( '../models/merchant.rb' )
 require_relative( '../models/user.rb' )
 require_relative( '../models/transaction.rb' )
 require_relative( '../models/tag.rb' )
+require_relative( '../models/calc.rb' )
 
 
 #index (all transactions for a single user)
 get '/users/:id/transactions' do 
   @user= User.find_by_id(params["id"])
   @transactions = @user.transactions()
+  @total = Calc.total(@transactions)
   erb(:"transactions/transactions_index")
 end
 

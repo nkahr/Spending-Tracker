@@ -47,8 +47,8 @@ class User
   end
 
   def self.update(options)
-    sql = "UPDATE TABLE users SET 
-    username = '#{options["username"]}', 
+    sql = "UPDATE TABLE users SET
+    username = '#{options["username"]}',
     funds = '#{options["funds"]}'
     WHERE id = #{params["id"]};"
     SqlRunner.run(sql)
@@ -58,6 +58,29 @@ class User
     sql = "SELECT * FROM transactions WHERE user_id = #{@id};"
     result = SqlRunner.run(sql)
     return result.map{|transaction| Transaction.new(transaction)}
+  end
+
+  def total()
+   sql = "SELECT * FROM transactions WHERE user_id = #{@id};"
+   result = SqlRunner.run(sql)
+   transactions = result.map{|transaction| Transaction.new(transaction)}
+   sum = 0
+   for transaction in transactions 
+    sum += transaction.amount()
+   end
+   return sum
+  end
+
+  def total_by_tag(tag_id)
+    sql = "SELECT * FROM transactions WHERE user_id = #{@id} AND tag_id = #{tag_id};"
+    result = SqlRunner.run(sql)
+    transactions = result.map{|transaction| Transaction.new(transaction)}
+    sum = 0
+    for transaction in transactions 
+      binding.pry
+     sum += transaction.amount()
+    end
+    return sum
   end
 
 end
