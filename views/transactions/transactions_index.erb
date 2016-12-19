@@ -3,6 +3,11 @@
 <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
 <hr>
 <h2>Total Money Spent: <%= @total %></h2>
+<%if Calc.amount_spent_this_month(@user) > @user.monthly_limit%> 
+<h3>Warning! You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
+<%else%>
+<h3>You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
+<%end%>
 <hr>
 
 <h2>Search by Month</h2>
@@ -34,6 +39,40 @@
 </label>
 
 </form>
+
+
+
+
+
+
+
+
+
+
+
+<h2>Sort</h2>
+<form action= "/users/<%= @user_id %>/transactions" method= "get">
+  <label>
+    <p>
+      Sort by: <select name="sort_by">
+
+          <option value= "date"> Date </option>
+          <option value= "amount_asc"> Amount (ascending) </option>
+          <option value= "amount_desc"> Amount (descending) </option>
+
+    </select>
+  </p>
+</label>
+
+<label>
+  <p><input type="submit" value="sort"></p>
+</label>
+
+</form>
+
+
+
+
 
 
 

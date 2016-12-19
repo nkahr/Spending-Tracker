@@ -44,5 +44,10 @@ class Merchant
     SqlRunner.run(sql)
   end
 
+  def self.sort()
+    merchants = Merchant.all()
+    merchants.sort!{|merchant1, merchant2| merchant1 <=> merchant2}
+    return merchants
+  end
 
 end

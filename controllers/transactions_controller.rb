@@ -10,9 +10,18 @@ require_relative( '../models/chart.rb' )
 
 #index (all transactions for a single user)
 get '/users/:id/transactions' do 
-  @user= User.find_by_id(params["id"])
   @user_id = params["id"].to_i
+  @user= User.find_by_id(@user_id)
   @transactions = @user.transactions()
+  case params["sort_by"]
+    when "date"
+      @transactions = Calc.sort_by_date(@transactions)
+    when "amount_asc"
+      @transactions = Calc.sort_by_amount_asc(@transactions)
+    when "amount_desc"
+      @transactions = Calc.sort_by_amount_desc(@transactions)
+    end
+
   @total = Calc.total(@transactions)
   @month_groups = Calc.group_by_month(@transactions)
   erb(:"transactions/transactions_index")
@@ -20,19 +29,39 @@ end
 
 # by month - make a new method to search for transactions by month 
 get '/users/:id/transactions/by_month' do
+  @user = User.find_by_id(params["id"].to_i)
   @month = params['month']
   @year = params['year']
-  @transactions = Transaction.all
+  @transactions = @user.transactions()
   @selected = Calc.find_by_month(@transactions, @month, @year)
-  @user = User.find_by_id(params["id"])
   erb(:"transactions/transactions_by_month")
+end
+
+#sort
+get '/users/:id/transactions/sort' do
+  @sort_by = params["sort_by"]
+  @user_id = params["id"].to_i
+  @total = Calc.total(@transactions)
+  @month_groups = Calc.group_by_month(@transactions)
+  @user = User.find_by_id(params["id"])
+  @transactions = @user.transactions()
+  case @sort_by
+  when "date"
+    @transactions = Calc.sort_by_date(@transactions)
+  when "amount_asc"
+    @transactions = Calc.sort_by_amount_asc(@transactions)
+  when "amount_desc"
+    @transactions = Calc.sort_by_amount_desc(@transactions)
+  end
+  erb(:"transactions/transactions_index")
 end
 
 #new - need to use merchant class to get drop-down menu
 get '/users/:id/transactions/new' do 
   @user= User.find_by_id(params["id"])
-  @tags = Tag.all()
-  @merchants = Merchant.all()
+#  @tags = Tag.all()
+  @tags = Tag.sort()
+  @merchants = Merchant.sort()
   erb(:"transactions/transactions_new")
 end
 

@@ -32,5 +32,10 @@ class Tag
     return Tag.new(result[0])
   end
 
+  def self.sort()
+    tags = Tag.all()
+    tags.sort!{|tag1, tag2| tag1.label <=> tag2.label}
+    return tags
+  end
 
 end

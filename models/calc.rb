@@ -43,4 +43,20 @@ class Calc
     return transactions_by_month
   end
 
+  def self.amount_spent_this_month(user)
+    today = Time.new.to_s.split(" ").first.split("-")
+    year = today[0].to_i
+    month = today[1].to_i
+    t_this_month = Calc.find_by_month(user.transactions, month, year) #returns all transactions in current month
+    total_spent = t_this_month.inject(0){|sum, transaction| sum += transaction.amount()}
+    return total_spent
+  end
+
+  def self.percentage_of_limit_spent(user)
+    total = Calc.amount_spent_this_month(user)
+    limit = user.monthly_limit
+    percentage = total.to_f/limit.to_f * 100.0
+    return percentage.round(1)
+  end
+
 end
