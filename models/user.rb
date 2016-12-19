@@ -15,12 +15,12 @@ class User
     @monthly_limit = options["monthly_limit"].to_i unless options["monthly_limit"].nil?
   end
 
-  # def new_transaction(options)
-  #   transaction = Transaction.new(options)
-  #   #find total monthly expenditure 
-  #   total = Calc.amount_spent_this_month(self)
-  #   return "Warning! You have spent more than your monthly limit!" if total > @monthly_limit
-  # end
+  def new_transaction(options)
+    transaction = Transaction.new(options)
+    transaction.save()
+    @funds -= transaction.amount()
+    return transaction
+  end
 
   def save()
     sql_check = "SELECT * FROM users WHERE username = '#{@username}';"

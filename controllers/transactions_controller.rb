@@ -11,16 +11,19 @@ require_relative( '../models/chart.rb' )
 #index (all transactions for a single user)
 get '/users/:id/transactions' do 
   @user_id = params["id"].to_i
-  @user= User.find_by_id(@user_id)
+  @user = User.find_by_id(@user_id)
   @transactions = @user.transactions()
-  case params["sort_by"]
-    when "date"
-      @transactions = Calc.sort_by_date(@transactions)
-    when "amount_asc"
-      @transactions = Calc.sort_by_amount_asc(@transactions)
-    when "amount_desc"
-      @transactions = Calc.sort_by_amount_desc(@transactions)
-    end
+
+  @transactions = Calc.sort_by(params["sort_by"], @transactions) unless params["sort_by"].nil?
+
+  # case params["sort_by"]
+  # when "date"
+  #   @transactions = Calc.sort_by_date(@transactions)
+  # when "amount_asc"
+  #   @transactions = Calc.sort_by_amount_asc(@transactions)
+  # when "amount_desc"
+  #   @transactions = Calc.sort_by_amount_desc(@transactions)
+  # end
 
   @total = Calc.total(@transactions)
   @month_groups = Calc.group_by_month(@transactions)
@@ -38,23 +41,23 @@ get '/users/:id/transactions/by_month' do
 end
 
 #sort
-get '/users/:id/transactions/sort' do
-  @sort_by = params["sort_by"]
-  @user_id = params["id"].to_i
-  @total = Calc.total(@transactions)
-  @month_groups = Calc.group_by_month(@transactions)
-  @user = User.find_by_id(params["id"])
-  @transactions = @user.transactions()
-  case @sort_by
-  when "date"
-    @transactions = Calc.sort_by_date(@transactions)
-  when "amount_asc"
-    @transactions = Calc.sort_by_amount_asc(@transactions)
-  when "amount_desc"
-    @transactions = Calc.sort_by_amount_desc(@transactions)
-  end
-  erb(:"transactions/transactions_index")
-end
+# get '/users/:id/transactions/sort' do
+#   @sort_by = params["sort_by"]
+#   @user_id = params["id"].to_i
+#   @total = Calc.total(@transactions)
+#   @month_groups = Calc.group_by_month(@transactions)
+#   @user = User.find_by_id(params["id"])
+#   @transactions = @user.transactions()
+#   case @sort_by
+#   when "date"
+#     @transactions = Calc.sort_by_date(@transactions)
+#   when "amount_asc"
+#     @transactions = Calc.sort_by_amount_asc(@transactions)
+#   when "amount_desc"
+#     @transactions = Calc.sort_by_amount_desc(@transactions)
+#   end
+#   erb(:"transactions/transactions_index")
+# end
 
 #new - need to use merchant class to get drop-down menu
 get '/users/:id/transactions/new' do 
@@ -67,10 +70,13 @@ end
 
 #create
 post '/users/:id/transactions' do 
+  @user_id = params["id"]
+  @user = User.find_by_id(@user_id)
   params["user_id"] = params["id"]
   params["id"] = nil
-  @transaction = Transaction.new(params)
-  @transaction.save()
+  @transaction = @user.new_transaction(params) # saves transaction to database and decreases funds
+  # @transaction = Transaction.new(params)
+  # @transaction.save()
   erb(:"transactions/transactions_create")
   redirect to("/users/#{params["user_id"]}/transactions")
 end
