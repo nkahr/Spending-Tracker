@@ -4,7 +4,7 @@ require_relative('../db/sql_runner.rb')
 class Transaction
 
   attr_reader :id 
-  attr_accessor :user_id, :merchant_id, :amount, :time, :tag_id
+  attr_accessor :user_id, :merchant_id, :amount, :time, :tag_id, :note
 
   def initialize(options)
     @id = options["id"].to_i unless options["id"].nil?
@@ -12,11 +12,13 @@ class Transaction
     @user_id = options["user_id"].to_i
     @merchant_id = options["merchant_id"].to_i
     @tag_id = options["tag_id"].to_i #maybe include unless options["tag_id"].nil?
-    @amount = options["amount"].to_i
+    @amount = options["amount"].to_f
+    @note = options["note"].nil? ? "" : options["note"]
+
   end
 
   def save()
-    sql = "INSERT INTO transactions (time, user_id, merchant_id, tag_id, amount) VALUES ('#{@time}', #{@user_id}, #{@merchant_id}, #{@tag_id}, #{@amount}) RETURNING *;"
+    sql = "INSERT INTO transactions (time, user_id, merchant_id, tag_id, amount, note) VALUES ('#{@time}', #{@user_id}, #{@merchant_id}, #{@tag_id}, #{@amount}, '#{@note}') RETURNING *;"
     result = SqlRunner.run(sql)
     @id = result[0]["id"].to_i
   end
@@ -66,6 +68,7 @@ class Transaction
       amount = '#{options['amount']}',
       tag_id = '#{options['tag_id']}',
       time = '#{options['time']}',
+      note = '#{options['note']}',
       merchant_id = #{options['merchant_id']},
       user_id = #{options['user_id']}
       WHERE id = #{options['id']};"

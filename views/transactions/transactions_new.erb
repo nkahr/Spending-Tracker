@@ -23,6 +23,8 @@
     <p>Date: <input type="text" name="time" value= <%= Time.new.to_s.split(" ").first %> ></p>
   </label>
 
+
+
  <label>
     <p>
     Tag: <select name="tag_id">
@@ -31,8 +33,12 @@
     <%end%>  
     </select>  
     </p>
-  </label>
+</label>
 
+  <label>
+    <p>Note: <input type="text" name="note" ></p>
+  </label>
+  
   <input type = "submit" value = "Submit"/>
 
 </form>

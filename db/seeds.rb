@@ -9,15 +9,15 @@ require('pry')
 
 user1 = User.new({
   "username" => "nina",
-  "funds" => 700, 
-  "monthly_limit" => 300
+  "funds" => 700.0, 
+  "monthly_limit" => 300.0
   })
 user1.save()
 
 user2 = User.new({
   "username" => "ollie",
-  "funds" => 23000,
-  "monthly_limit" => 500
+  "funds" => 23000.0,
+  "monthly_limit" => 500.0
   })
 user2.save()
 
@@ -62,7 +62,7 @@ transaction1 = Transaction.new({
   "merchant_id" => merchant1.id, 
   "user_id" => user1.id, 
   "time" => today,
-  "amount" => 30,
+  "amount" => 19.99,
   "tag_id" => tag2.id()
   })
 transaction1.save()
@@ -71,7 +71,7 @@ transaction2 = Transaction.new({
   "merchant_id" => merchant3.id, 
   "user_id" => user1.id, 
   "time" => today,
-  "amount" => 10,
+  "amount" => 10.0,
   "tag_id" => tag1.id()
   })
 transaction2.save()
@@ -80,7 +80,7 @@ transaction3 = Transaction.new({
   "merchant_id" => merchant4.id, 
   "user_id" => user1.id, 
   "time" => today,
-  "amount" => 5,
+  "amount" => 5.50,
   "tag_id" => tag3.id()
   })
 transaction3.save()
@@ -89,7 +89,7 @@ transaction4 = Transaction.new({
   "merchant_id" => merchant1.id, 
   "user_id" => user2.id, 
   "time" => today,
-  "amount" => 15,
+  "amount" => 15.29,
   "tag_id" => tag1.id()
   })
 transaction4.save()

@@ -26,7 +26,6 @@ class Merchant
     return result.map{|merchant| Merchant.new(merchant)}
   end
 
-
   def self.find_by_id(id)
     sql = "SELECT * FROM merchants 
     WHERE id = #{id};"
@@ -44,9 +43,9 @@ class Merchant
     SqlRunner.run(sql)
   end
 
-  def self.sort()
+  def self.sort() #make drop down menu alphabetical
     merchants = Merchant.all()
-    merchants.sort!{|merchant1, merchant2| merchant1 <=> merchant2}
+    merchants.sort!{|merchant1, merchant2| merchant1.name <=> merchant2.name}
     return merchants
   end
 

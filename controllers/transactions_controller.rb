@@ -10,20 +10,31 @@ require_relative( '../models/chart.rb' )
 
 #index (all transactions for a single user)
 get '/users/:id/transactions' do 
+  binding.pry
   @user_id = params["id"].to_i
+  @tags = Tag.all()
   @user = User.find_by_id(@user_id)
   @transactions = @user.transactions()
+  params["sort_by"] 
 
-  @transactions = Calc.sort_by(params["sort_by"], @transactions) unless params["sort_by"].nil?
+  unless params["tag_id"].to_i == 0
+    @transactions = @user.find_by_tag_id(params["tag_id"]) 
+    @text1 = "Total spent on #{Tag.find_by_id(params["tag_id"]).label}: #{Calc.total(@transactions)}"
+  end
 
-  # case params["sort_by"]
-  # when "date"
-  #   @transactions = Calc.sort_by_date(@transactions)
-  # when "amount_asc"
-  #   @transactions = Calc.sort_by_amount_asc(@transactions)
-  # when "amount_desc"
-  #   @transactions = Calc.sort_by_amount_desc(@transactions)
-  # end
+  @month = params['month'].to_i
+  @year = params['year'].to_i
+
+  unless @month == 0 && @year == 0
+    @transactions = Calc.find_by_month(@transactions, @month, @year)
+  end
+
+  unless params["sort_by"].to_s == ""
+    binding.pry
+    @transactions = Calc.sort_by(params["sort_by"], @transactions) 
+    @text2 = "All transactions sorted by #{params["sort_by"]}"
+  end
+
 
   @total = Calc.total(@transactions)
   @month_groups = Calc.group_by_month(@transactions)
@@ -39,25 +50,6 @@ get '/users/:id/transactions/by_month' do
   @selected = Calc.find_by_month(@transactions, @month, @year)
   erb(:"transactions/transactions_by_month")
 end
-
-#sort
-# get '/users/:id/transactions/sort' do
-#   @sort_by = params["sort_by"]
-#   @user_id = params["id"].to_i
-#   @total = Calc.total(@transactions)
-#   @month_groups = Calc.group_by_month(@transactions)
-#   @user = User.find_by_id(params["id"])
-#   @transactions = @user.transactions()
-#   case @sort_by
-#   when "date"
-#     @transactions = Calc.sort_by_date(@transactions)
-#   when "amount_asc"
-#     @transactions = Calc.sort_by_amount_asc(@transactions)
-#   when "amount_desc"
-#     @transactions = Calc.sort_by_amount_desc(@transactions)
-#   end
-#   erb(:"transactions/transactions_index")
-# end
 
 #new - need to use merchant class to get drop-down menu
 get '/users/:id/transactions/new' do 

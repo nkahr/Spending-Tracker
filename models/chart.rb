@@ -4,6 +4,7 @@ require('gchart')
 
 class MoneyChart
 
+#refactor
   def self.pie_chart(transactions_array)
     tags = Tag.all()
     labels = []

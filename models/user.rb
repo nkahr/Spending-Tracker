@@ -11,8 +11,8 @@ class User
   def initialize(options)
     @id = options["id"].to_i unless options["id"].nil?
     @username = options["username"]
-    @funds = options["funds"].to_i #becomes zero if no funds are included 
-    @monthly_limit = options["monthly_limit"].to_i unless options["monthly_limit"].nil?
+    @funds = options["funds"].to_f #becomes zero if no funds are included 
+    @monthly_limit = options["monthly_limit"].to_f unless options["monthly_limit"].nil?
   end
 
   def new_transaction(options)
@@ -31,6 +31,12 @@ class User
     result = SqlRunner.run(sql)
     @id = result[0]["id"].to_i
     return nil
+  end
+
+  def add_funds(amount)
+    @funds += amount
+    sql = "UPDATE users SET funds = #{@funds} WHERE id = #{@id};"
+    SqlRunner.run(sql)
   end
 
   def self.all()
@@ -61,9 +67,9 @@ class User
   end
 
   def self.update(options)
-    sql = "UPDATE TABLE users SET
+    sql = "UPDATE users SET
     username = '#{options["username"]}',
-    funds = '#{options["funds"]}', 
+    funds = #{options["funds"]}, 
     monthly_limit = #{options["monthly_limit"]}
     WHERE id = #{params["id"]};"
     SqlRunner.run(sql)
@@ -96,5 +102,11 @@ class User
     end
     return sum
   end
+
+  def find_by_tag_id(tag_id)
+    sql = "SELECT * FROM transactions WHERE tag_id = #{tag_id} AND user_id = #{@id};"
+    return Transaction.get_all(sql)
+  end
+
 
 end

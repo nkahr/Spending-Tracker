@@ -8,12 +8,12 @@ class Calc
 
   def self.total(transactions_array)
    total = transactions_array.inject(0){|sum, transaction| sum += transaction.amount()}
-   return total
+   return total.round(2)
   end
 
   def self.total_by_id(transactions_array, id)
     selection = transactions_array.find_all{|transaction| transaction.tag_id == id}
-    return Calc.total(selection)
+    return Calc.total(selection).round(2)
   end
 
   def self.sort_by(attribute, transactions_array)
@@ -62,7 +62,7 @@ class Calc
     month = today[1].to_i
     t_this_month = Calc.find_by_month(user.transactions, month, year) #returns all transactions in current month
     total_spent = t_this_month.inject(0){|sum, transaction| sum += transaction.amount()}
-    return total_spent
+    return total_spent.round(2)
   end
 
   def self.percentage_of_limit_spent(user)

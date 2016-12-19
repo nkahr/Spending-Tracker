@@ -4,17 +4,21 @@
 <hr>
 <h2>Total Money Spent: <%= @total %></h2>
 <%if Calc.amount_spent_this_month(@user) > @user.monthly_limit%> 
-<h3>Warning! You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
+<h3>WARNING: You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
 <%else%>
 <h3>You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
 <%end%>
 <hr>
 
+<h4><%=@text1%></h4>
+<h4><%=@text2%></h4>
+
 <h2>Search by Month</h2>
-<form action= "/users/<%= @user_id %>/transactions/by_month" method= "get">
+<form action= "/users/<%= @user_id %>/transactions" method= "get">
   <label>
     <p>
       Month: <select name="month">
+      <option value= ""> select </option>
       <%for year in @month_groups.keys%>
         <%for month in @month_groups[year].keys%>
           <option value= <%= month %>> <%= month %> </option>
@@ -27,6 +31,7 @@
 <label>
   <p>
     Year: <select name="year">
+    <option value= ""> select </option>
     <%for year in @month_groups.keys%>
       <option value= <%= year %>> <%= year %> </option>
     <%end%>  
@@ -34,28 +39,20 @@
 </p>
 </label>
 
-<label>
+<!-- <label>
   <p><input type="submit" value="search"></p>
-</label>
+</label> -->
 
-</form>
-
-
-
-
-
-
-
-
+<!-- </form> -->
 
 
 
 <h2>Sort</h2>
-<form action= "/users/<%= @user_id %>/transactions" method= "get">
+<!-- <form action= "/users/<%= @user_id %>/transactions" method= "get"> -->
   <label>
     <p>
       Sort by: <select name="sort_by">
-
+          <option value= ""> select </option>
           <option value= "date"> Date </option>
           <option value= "amount_asc"> Amount (ascending) </option>
           <option value= "amount_desc"> Amount (descending) </option>
@@ -64,17 +61,32 @@
   </p>
 </label>
 
-<label>
+<!-- <label>
   <p><input type="submit" value="sort"></p>
+</label> -->
+
+<!-- </form> -->
+
+
+
+<h2>Sort by Tag</h2>
+<!-- <form action= "/users/<%= @user_id %>/transactions" method= "get"> -->
+<label>
+   <p>
+     Tag: <select name="tag_id">
+     <option value = "">select</option>
+     <%for tag in @tags%>
+     <option value= <%= tag.id %>> <%=tag.label %> </option>
+     <%end%>  
+   </select>  
+   </p>
+ </label>
+
+<label>
+  <p><input type="submit" value="Search by Category"></p>
 </label>
 
 </form>
-
-
-
-
-
-
 
 
 
@@ -84,6 +96,7 @@
 <a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %> £<%= transaction.amount() %> </a> 
 <p>Date: <%= transaction.time() %> </p>
 <p>Tag: <%= transaction.tag.label %> </p>
+<p> <%= transaction.note %> </p>
 <p><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit">Edit</a></p>
 
 <form action= "/users/<%= @user.id %>/transactions/<%= transaction.id %>/delete" method= "post">
