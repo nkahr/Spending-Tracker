@@ -2,12 +2,9 @@ require_relative('transaction.rb')
 require_relative('merchant.rb')
 require_relative('user.rb')
 require('pg')
-require 'date'
+require ('date')
 
 class Calc
-
-  def initialize()
-  end
 
   def self.total(transactions_array)
    total = transactions_array.inject(0){|sum, transaction| sum += transaction.amount()}
@@ -37,8 +34,13 @@ class Calc
   def self.group_by_month(transactions_array)
     dates = transactions_array.map{|transaction| Date.parse(transaction.time)}
     dates_by_year = dates.group_by(&:year)
-    dates_by_month = dates_by_year.map{|year, date| [year, date.group_by{|date| date.month}]}
+    dates_by_month = Hash[dates_by_year.map{|year, date| [year, date.group_by{|date| date.month}]}]
     return dates_by_month
+  end
+
+  def self.find_by_month(transactions_array, month, year)
+    transactions_by_month = transactions_array.find_all{|t| t.time.include?("#{year}-#{month}")}
+    return transactions_by_month
   end
 
 end

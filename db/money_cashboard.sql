@@ -11,6 +11,7 @@ CREATE TABLE merchants (
 CREATE TABLE users (
   id SERIAL8 primary key,
   username VARCHAR(255),
+  monthly_limit INT8,
   funds INT8 
 );
 

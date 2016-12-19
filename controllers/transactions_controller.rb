@@ -11,9 +11,21 @@ require_relative( '../models/chart.rb' )
 #index (all transactions for a single user)
 get '/users/:id/transactions' do 
   @user= User.find_by_id(params["id"])
+  @user_id = params["id"].to_i
   @transactions = @user.transactions()
   @total = Calc.total(@transactions)
+  @month_groups = Calc.group_by_month(@transactions)
   erb(:"transactions/transactions_index")
+end
+
+# by month - make a new method to search for transactions by month 
+get '/users/:id/transactions/by_month' do
+  @month = params['month']
+  @year = params['year']
+  @transactions = Transaction.all
+  @selected = Calc.find_by_month(@transactions, @month, @year)
+  @user = User.find_by_id(params["id"])
+  erb(:"transactions/transactions_by_month")
 end
 
 #new - need to use merchant class to get drop-down menu
@@ -63,7 +75,7 @@ get '/users/:id/transactions/:t_id/edit' do
   erb(:"transactions/transactions_edit")
 end
 
-# #update 
+#update 
 post '/users/:id/transactions/:t_id' do 
   params["user_id"] = params["id"]
   params["id"] = params["t_id"]

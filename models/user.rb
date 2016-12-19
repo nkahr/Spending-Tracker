@@ -5,19 +5,24 @@ require_relative('transaction.rb')
 class User
 
   attr_reader :id 
-  attr_accessor :username, :funds#, :limit
+  attr_accessor :username, :funds, :monthly_limit
 
   def initialize(options)
     @id = options["id"].to_i unless options["id"].nil?
     @username = options["username"]
     @funds = options["funds"].to_i #becomes zero if no funds are included 
-#    @limit = options["limit"].to_i unless options["limit"].nil?
+    @monthly_limit = options["monthly_limit"].to_i unless options["monthly_limit"].nil?
   end
 
   def save()
-    sql = "INSERT INTO users (username, funds) VALUES ('#{@username}', #{@funds}) RETURNING *;"
+    sql_check = "SELECT * FROM users WHERE username = '#{@username}';"
+    result_check = SqlRunner.run(sql_check)
+    binding.pry
+    return "This username already exists in the database" unless result_check.ntuples == 0
+    sql = "INSERT INTO users (username, funds, monthly_limit) VALUES ('#{@username}', #{@funds}, #{@monthly_limit}) RETURNING *;"
     result = SqlRunner.run(sql)
     @id = result[0]["id"].to_i
+    return nil
   end
 
   def self.all()
@@ -50,7 +55,8 @@ class User
   def self.update(options)
     sql = "UPDATE TABLE users SET
     username = '#{options["username"]}',
-    funds = '#{options["funds"]}'
+    funds = '#{options["funds"]}', 
+    monthly_limit = #{options["monthly_limit"]}
     WHERE id = #{params["id"]};"
     SqlRunner.run(sql)
   end

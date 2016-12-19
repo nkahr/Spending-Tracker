@@ -18,7 +18,7 @@ end
 #create
 post '/users' do 
   @user = User.new(params)
-  @user.save()
+  @result = @user.save()
   erb(:"users/users_create")
 end
 
