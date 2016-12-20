@@ -70,7 +70,7 @@ class User
     username = '#{options["username"]}',
     funds = #{options["funds"]}, 
     monthly_limit = #{options["monthly_limit"]}
-    WHERE id = #{params["id"]};"
+    WHERE id = #{options["id"]};"
     SqlRunner.run(sql)
   end
 
