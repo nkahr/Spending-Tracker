@@ -11,8 +11,8 @@ class User
   def initialize(options)
     @id = options["id"].to_i unless options["id"].nil?
     @username = options["username"]
-    @funds = options["funds"].to_f #becomes zero if no funds are included 
-    @monthly_limit = options["monthly_limit"].to_f unless options["monthly_limit"].nil?
+    @funds = options["funds"].to_f.round(2) #becomes zero if no funds are included 
+    @monthly_limit = options["monthly_limit"].to_f.round(2) unless options["monthly_limit"].nil?
   end
 
   def new_transaction(options)
@@ -25,7 +25,6 @@ class User
   def save()
     sql_check = "SELECT * FROM users WHERE username = '#{@username}';"
     result_check = SqlRunner.run(sql_check)
-    binding.pry
     return "This username already exists in the database" unless result_check.ntuples == 0
     sql = "INSERT INTO users (username, funds, monthly_limit) VALUES ('#{@username}', #{@funds}, #{@monthly_limit}) RETURNING *;"
     result = SqlRunner.run(sql)
@@ -89,7 +88,7 @@ class User
    for transaction in transactions 
     sum += transaction.amount()
    end
-   return sum
+   return sum.round(2)
   end
 
   def total_by_tag(tag_id)
@@ -100,7 +99,7 @@ class User
     for transaction in transactions 
      sum += transaction.amount()
     end
-    return sum
+    return sum.round(2)
   end
 
   def find_by_tag_id(tag_id)

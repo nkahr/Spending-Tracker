@@ -10,7 +10,6 @@ require_relative( '../models/chart.rb' )
 
 #index (all transactions for a single user)
 get '/users/:id/transactions' do 
-  binding.pry
   @user_id = params["id"].to_i
   @tags = Tag.all()
   @user = User.find_by_id(@user_id)
@@ -30,7 +29,6 @@ get '/users/:id/transactions' do
   end
 
   unless params["sort_by"].to_s == ""
-    binding.pry
     @transactions = Calc.sort_by(params["sort_by"], @transactions) 
     @text2 = "All transactions sorted by #{params["sort_by"]}"
   end

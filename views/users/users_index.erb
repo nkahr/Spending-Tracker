@@ -5,9 +5,9 @@
 <% for user in @users %> 
 
 <p>Name: <%= user.username() %> </p>
-<p>Funds: <%= user.funds() %> </p>
-<p>Monthy Limit: <%= user.monthly_limit %></p>
-<p><a href="/users/<%= user.id %>">User Details</a></p>
+<p>Funds: £<%= "%.2f" % user.funds() %> </p>
+<p>Monthy Limit: £<%= "%.2f" % user.monthly_limit %></p>
+<p><a href="/users/<%= user.id %>">See Account</a></p>
 
 <hr>
 

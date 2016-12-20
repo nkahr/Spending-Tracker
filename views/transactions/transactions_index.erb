@@ -1,8 +1,10 @@
 
-<hr>
 <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
+
+<section id="main">
+
 <hr>
-<h2>Total Money Spent: <%= @total %></h2>
+<h2>Total Money Spent: £<%= @total %></h2>
 <%if Calc.amount_spent_this_month(@user) > @user.monthly_limit%> 
 <h3>WARNING: You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
 <%else%>
@@ -39,16 +41,8 @@
 </p>
 </label>
 
-<!-- <label>
-  <p><input type="submit" value="search"></p>
-</label> -->
-
-<!-- </form> -->
-
-
 
 <h2>Sort</h2>
-<!-- <form action= "/users/<%= @user_id %>/transactions" method= "get"> -->
   <label>
     <p>
       Sort by: <select name="sort_by">
@@ -61,16 +55,9 @@
   </p>
 </label>
 
-<!-- <label>
-  <p><input type="submit" value="sort"></p>
-</label> -->
-
-<!-- </form> -->
 
 
-
-<h2>Sort by Tag</h2>
-<!-- <form action= "/users/<%= @user_id %>/transactions" method= "get"> -->
+<h2>Search by Tag</h2>
 <label>
    <p>
      Tag: <select name="tag_id">
@@ -83,7 +70,7 @@
  </label>
 
 <label>
-  <p><input type="submit" value="Search by Category"></p>
+  <p><input type="submit" value="SEARCH"></p>
 </label>
 
 </form>
@@ -92,21 +79,30 @@
 
 <hr>
 <% for transaction in @transactions %> 
+<nav>
+    <table>
+        <tr>
+            <td><a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %> £<%= transaction.amount() %> </a></td>
+            <td><%= transaction.tag.label %></td> 
+        </tr>
 
-<a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %> £<%= transaction.amount() %> </a> 
-<p>Date: <%= transaction.time() %> </p>
-<p>Tag: <%= transaction.tag.label %> </p>
-<p> <%= transaction.note %> </p>
-<p><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit">Edit</a></p>
-
-<form action= "/users/<%= @user.id %>/transactions/<%= transaction.id %>/delete" method= "post">
-  <label>
-    <p><input type="submit" value="DELETE"></p>
-  </label>
-</form>
+        <tr>
+            <td colspan="2"><%= transaction.time() %></td>
+        </tr>
+        
+        <tr>
+            <td colspan="2"><%= transaction.note %></td>
+        </tr>
+        <tr>
+            <td><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit"></a></td>
+        </tr>
+    </table>
+</nav>
 
 <hr>
 
 <% end %>
 
 <img src= <%= MoneyChart.pie_chart(@transactions) %>>
+
+</section>
