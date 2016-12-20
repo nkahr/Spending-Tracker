@@ -1,8 +1,11 @@
 require( 'sinatra' )
 require( 'sinatra/contrib/all' )
 require( 'pry' )
+require('date')
 require_relative( '../models/user.rb' )
+# require_relative( '../models/visit.rb' )
 require_relative( '../models/merchant.rb' )
+require_relative( '../models/chart.rb' )
 
 #index
 get '/users' do 
@@ -36,9 +39,11 @@ post '/users' do
   erb(:"users/users_create")
 end
 
-#show
+#show (home)
 get '/users/:id' do 
   @user = User.find_by_id(params["id"])
+  today = Time.new
+  result = Calc.has_visited_this_month?(@user, today)
   erb(:"users/users_show")
 end
 

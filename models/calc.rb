@@ -1,6 +1,7 @@
 require_relative('transaction.rb')
 require_relative('merchant.rb')
 require_relative('user.rb')
+require_relative('../db/sql_runner.rb')
 require('pg')
 require ('date')
 
@@ -27,22 +28,6 @@ class Calc
     end
     return transactions_array
   end
-
-
-  # def self.sort_by_amount_asc(transactions_array)
-  #   transactions_array.sort!{|transaction1, transaction2| transaction1.amount <=> transaction2.amount}
-  #   return transactions_array
-  # end
-
-  # def self.sort_by_amount_desc(transactions_array)
-  #   transactions_array.sort!{|transaction1, transaction2| transaction2.amount <=> transaction1.amount}
-  #   return transactions_array
-  # end
-
-  # def self.sort_by_date(transactions_array)
-  #   transactions_array.sort!{|transaction1, transaction2| Date.parse(transaction1.time) <=> Date.parse(transaction2.time)}
-  #   return transactions_array
-  # end
 
   def self.group_by_month(transactions_array)
     dates = transactions_array.map{|transaction| Date.parse(transaction.time)}
@@ -71,5 +56,32 @@ class Calc
     percentage = total.to_f/limit.to_f * 100.0
     return percentage.round(1)
   end
+
+  #checks whether user has visited and updates funds by monthly_income depending on how many months it has been
+  def self.has_visited_this_month?(user, date) #time object
+    user_id = user.id
+    sql = "SELECT * FROM visits WHERE id = (SELECT MAX(id) FROM visits) AND user_id = #{user_id};"
+    result = SqlRunner.run(sql)
+    unless result.ntuples == 0
+      last_date = Date.parse(result[0]["date"])
+      months = (date.year * 12 + date.month) - (last_date.year * 12 + last_date.month)
+      return true if months == 0 
+      user.add_funds(months*user.monthly_income)
+    end
+    sql2 = "INSERT INTO visits (date, user_id) VALUES ('#{date.to_s.split(" ").first}', #{user_id})"
+    SqlRunner.run(sql2)
+  end
+
+  def self.spending_per_day(user)
+    transactions = user.transactions
+    data = []
+    Date::DAYNAMES.each do |day|
+      t_in_day = transactions.find_all{|t| Date.parse(t.time).strftime("%A") == day}
+      total_in_day = t_in_day.inject(0){|sum, t| sum += t.amount}
+      data.push(total_in_day.round(2))
+    end
+    return data
+  end
+
 
 end

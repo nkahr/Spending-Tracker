@@ -5,6 +5,7 @@
 <p><a href="/users/<%= @user.id() %>/edit">Edit User Details</a></p>
 <p><a href="/users/<%= @user.id() %>/transactions">Show Transactions</a></p>
 <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
+<p><a href="/users/<%= @user.id() %>/add_funds">Add Funds</a></p>
 <p>Total spent: <%= @user.total() %></p>
 
 <form action= "/users/<%= @user.id() %>/delete" method= "post">

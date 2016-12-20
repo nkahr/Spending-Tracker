@@ -1,10 +1,10 @@
 require_relative('calc.rb')
 require_relative('tag.rb')
 require('gchart')
+require('date')
 
 class MoneyChart
 
-#refactor
   def self.pie_chart(transactions_array)
     tags = Tag.all()
     labels = []
@@ -17,6 +17,13 @@ class MoneyChart
       end
     end
     chart_url = Gchart.pie({:data => totals, :labels => labels})
+    return chart_url
+  end
+
+  def self.spending_per_day_bar_chart(user)
+    data = Calc.spending_per_day(user)
+    days = Date::ABBR_DAYNAMES
+    chart_url = Gchart.bar({:data => data, :labels => days})
     return chart_url
   end
 

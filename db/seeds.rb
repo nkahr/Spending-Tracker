@@ -7,17 +7,21 @@ require_relative('../models/chart.rb')
 
 require('pry')
 
+User.delete_all()
+
 user1 = User.new({
   "username" => "nina",
   "funds" => 700.0, 
-  "monthly_limit" => 300.0
+  "monthly_limit" => 300.0,
+  "monthly_income" => 1000.0
   })
 user1.save()
 
 user2 = User.new({
   "username" => "ollie",
   "funds" => 23000.0,
-  "monthly_limit" => 500.0
+  "monthly_limit" => 500.0,
+  "monthly_income" => 3000.0
   })
 user2.save()
 

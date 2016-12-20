@@ -67,7 +67,7 @@ post '/users/:id/transactions' do
   @transaction = @user.new_transaction(params) # saves transaction to database and decreases funds
   # @transaction = Transaction.new(params)
   # @transaction.save()
-  erb(:"transactions/transactions_create")
+  #erb(:"transactions/transactions_create")
   redirect to("/users/#{params["user_id"]}/transactions")
 end
 

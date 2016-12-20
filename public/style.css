@@ -2,15 +2,12 @@
 
 h1.title {
   font-family: 'Cabin Sketch', cursive;
-  height: 100px;
-  width: 200px;
-  font-size: 35pt;
+
 
 }
 
 
 body {
   font-family: 'Cabin', sans-serif;
-  display: inline-block;
 
 }
