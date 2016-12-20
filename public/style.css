@@ -1,13 +1,25 @@
-
-
 h1.title {
   font-family: 'Cabin Sketch', cursive;
 
 
 }
 
-
 body {
   font-family: 'Cabin', sans-serif;
+  margin: 0px;
+}
 
+#content {
+  display: flex;
+}
+
+.aside {
+  flex: 2;
+  background-color: #e5e5e5;
+}
+
+#main {
+  height: 100vh;
+  overflow: scroll;
+  flex: 10;
 }

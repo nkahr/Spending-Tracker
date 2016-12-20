@@ -21,7 +21,14 @@ class User
     transaction = Transaction.new(options)
     transaction.save()
     @funds -= transaction.amount()
+    self.update()
     return transaction
+  end
+
+  def new_standing_order(options)
+    standing_order = StandingOrder.new(options)
+    standing_order.save()
+    return standing_order
   end
 
   def save()
@@ -75,6 +82,23 @@ class User
     pay_day = #{options["pay_day"]},
     monthly_income = #{options["monthly_income"]}
     WHERE id = #{options["id"]};"
+    SqlRunner.run(sql)
+  end
+
+  def standing_orders()
+    sql = "SELECT * FROM standing_orders WHERE user_id = #{@id};"
+    result = SqlRunner.run(sql)
+    return result.map{|standing_order| StandingOrder.new(standing_order)}
+  end
+
+  def update()
+    sql = "UPDATE users SET
+    username = '#{@username}',
+    funds = #{@funds}, 
+    monthly_limit = #{@monthly_limit},
+    pay_day = #{@pay_day},
+    monthly_income = #{@monthly_income}
+    WHERE id = #{@id};"
     SqlRunner.run(sql)
   end
 

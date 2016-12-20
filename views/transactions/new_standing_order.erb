@@ -1,5 +1,5 @@
-<h1>Add New Transaction</h1>
-<form action= "/users/<%= @user.id %>/transactions" method="post">
+<h1>Add New Standing Order</h1>
+<form action= "/users/<%= @user.id %>/transactions/new_standing_order" method="post">
 
 
 <p><a href="/users/<%= @user.id %>/merchants/new">Add New Merchant</a></p>
@@ -20,7 +20,7 @@
   </label>
 
   <label>
-    <p>Date: <input type="text" name="time" value= <%= Time.new.to_s.split(" ").first %> ></p>
+    <p>Start Date: <input type="text" name="first_payment" value= <%= Time.new.to_s.split(" ").first %> ></p>
   </label>
 
 
@@ -42,4 +42,3 @@
   <input type = "submit" value = "Submit"/>
 
 </form>
-

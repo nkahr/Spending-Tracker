@@ -2,7 +2,7 @@
 <form action="/users/<%=@user.id%>/transactions/<%=@transaction.id%>" method="post">
   
 <label>
-  <p>Amount : <input type = "number" name = "amount" value="<%=@transaction.amount%>"></p>
+  <p>Amount : <input type = "number" name = "amount" step='0.01' value="<%=@transaction.amount%>"></p>
 </label>
 
 <label>

@@ -1,14 +1,18 @@
 
-<p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
-
+<aside class="aside">
+  <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
+  <p><a href="/users/<%= @user.id() %>/transactions/new_standing_order">Add New Standing Order</a></p>
+  <p><a href="/users/<%= @user.id() %>">Home</a></p>
+  <p>Funds: £<%= "%.2f" % @user.funds %></p>
+</aside>
 <section id="main">
 
 <hr>
-<h2>Total Money Spent: £<%= @total %></h2>
+<h2>Total Money Spent: £<%= "%.2f" % @total %></h2>
 <%if Calc.amount_spent_this_month(@user) > @user.monthly_limit%> 
-<h3>WARNING: You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
+<h3>WARNING: You've spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
 <%else%>
-<h3>You have spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
+<h3>You've spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
 <%end%>
 <hr>
 
@@ -82,7 +86,7 @@
 <nav>
     <table>
         <tr>
-            <td><a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %> £<%= transaction.amount() %> </a></td>
+            <td><a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %> £<%= "%.2f" % transaction.amount() %> </a></td>
             <td><%= transaction.tag.label %></td> 
         </tr>
 
@@ -94,7 +98,7 @@
             <td colspan="2"><%= transaction.note %></td>
         </tr>
         <tr>
-            <td><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit"></a></td>
+            <td><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit">Edit</a></td>
         </tr>
     </table>
 </nav>

@@ -13,8 +13,9 @@ get '/users/:id/transactions' do
   @user_id = params["id"].to_i
   @tags = Tag.all()
   @user = User.find_by_id(@user_id)
+  Calc.pay_standing_orders(@user, Time.new)
   @transactions = @user.transactions()
-  #params["sort_by"] 
+
 
   unless params["tag_id"].to_i == 0
     @transactions = @user.find_by_tag_id(params["tag_id"]) 
@@ -58,6 +59,7 @@ get '/users/:id/transactions/new' do
   erb(:"transactions/transactions_new")
 end
 
+
 #create
 post '/users/:id/transactions' do 
   @user_id = params["id"]
@@ -65,11 +67,27 @@ post '/users/:id/transactions' do
   params["user_id"] = params["id"]
   params["id"] = nil
   @transaction = @user.new_transaction(params) # saves transaction to database and decreases funds
-  # @transaction = Transaction.new(params)
-  # @transaction.save()
-  #erb(:"transactions/transactions_create")
   redirect to("/users/#{params["user_id"]}/transactions")
 end
+
+#new standing order
+get '/users/:id/transactions/new_standing_order' do 
+  @user= User.find_by_id(params["id"])
+  @tags = Tag.sort()
+  @merchants = Merchant.sort()
+  erb(:"transactions/new_standing_order")
+end
+
+#create standing order
+post '/users/:id/transactions/new_standing_order' do 
+  @user_id = params["id"]
+  @user = User.find_by_id(@user_id)
+  params["user_id"] = params["id"]
+  params["id"] = nil
+  @standing_order = @user.new_standing_order(params) # saves transaction to database and decreases funds
+  redirect to("/users/#{params["user_id"]}/transactions")
+end
+
 
 #show (when you click on a single transaction)
 get '/users/:id/transactions/:t_id' do 
