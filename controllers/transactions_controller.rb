@@ -16,7 +16,6 @@ get '/users/:id/transactions' do
   Calc.pay_standing_orders(@user, Time.new)
   @transactions = @user.transactions()
 
-
   unless params["tag_id"].to_i == 0
     @transactions = @user.find_by_tag_id(params["tag_id"]) 
     @text1 = "Total spent on #{Tag.find_by_id(params["tag_id"]).label}: #{Calc.total(@transactions)}"
@@ -33,7 +32,6 @@ get '/users/:id/transactions' do
     @transactions = Calc.sort_by(params["sort_by"], @transactions) 
     @text2 = "All transactions sorted by #{params["sort_by"]}"
   end
-
 
   @total = Calc.total(@transactions)
   @month_groups = Calc.group_by_month(@transactions)
@@ -53,7 +51,6 @@ end
 #new - need to use merchant class to get drop-down menu
 get '/users/:id/transactions/new' do 
   @user= User.find_by_id(params["id"])
-#  @tags = Tag.all()
   @tags = Tag.sort()
   @merchants = Merchant.sort()
   erb(:"transactions/transactions_new")

@@ -1,12 +1,15 @@
 
 <aside class="aside">
+  <p><a href="/users/<%= @user.id() %>">Home</a></p>
   <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
   <p><a href="/users/<%= @user.id() %>/transactions/new_standing_order">Add New Standing Order</a></p>
-  <p><a href="/users/<%= @user.id() %>">Home</a></p>
+  <p><a href="/users">Change User</a></p>
   <p>Funds: £<%= "%.2f" % @user.funds %></p>
 </aside>
-<section id="main">
 
+
+<section id="main">
+<h1>Transactions</h1>
 <hr>
 <h2>Total Money Spent: £<%= "%.2f" % @total %></h2>
 <%if Calc.amount_spent_this_month(@user) > @user.monthly_limit%> 
@@ -19,6 +22,9 @@
 <h4><%=@text1%></h4>
 <h4><%=@text2%></h4>
 
+
+
+<table></table>
 <h2>Search by Month</h2>
 <form action= "/users/<%= @user_id %>/transactions" method= "get">
   <label>
@@ -74,7 +80,7 @@
  </label>
 
 <label>
-  <p><input type="submit" value="SEARCH"></p>
+  <p><input type="submit" value="APPLY"></p>
 </label>
 
 </form>
@@ -106,8 +112,12 @@
 <hr>
 
 <% end %>
+</section>
 
-<img src= <%= MoneyChart.pie_chart(@transactions) %>>
+
+<section id = "charts">
 <img src=<%= MoneyChart.spending_per_day_bar_chart(@user) %>>
-
+<img src= <%= MoneyChart.pie_chart(@transactions) %>>
+<!-- <img src=<%= MoneyChart.spending_per_category_bar_chart(@user) %>>
+ -->
 </section>
