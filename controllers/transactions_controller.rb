@@ -14,7 +14,7 @@ get '/users/:id/transactions' do
   @tags = Tag.all()
   @user = User.find_by_id(@user_id)
   @transactions = @user.transactions()
-  params["sort_by"] 
+  #params["sort_by"] 
 
   unless params["tag_id"].to_i == 0
     @transactions = @user.find_by_tag_id(params["tag_id"]) 

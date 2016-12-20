@@ -6,7 +6,7 @@ require_relative('calc.rb')
 class User
 
   attr_reader :id 
-  attr_accessor :username, :funds, :monthly_limit, :monthly_income
+  attr_accessor :username, :funds, :monthly_limit, :monthly_income, :pay_day
 
   def initialize(options)
     @id = options["id"].to_i unless options["id"].nil?
@@ -14,6 +14,7 @@ class User
     @funds = options["funds"].to_f.round(2) #becomes zero if no funds are included 
     @monthly_limit = options["monthly_limit"].to_f.round(2) unless options["monthly_limit"].nil?
     @monthly_income = options["monthly_income"].to_f.round(2) #defaults to zero
+    @pay_day = options["pay_day"].nil? ? 1 : options["pay_day"].to_i
   end
 
   def new_transaction(options)
@@ -27,7 +28,7 @@ class User
     sql_check = "SELECT * FROM users WHERE username = '#{@username}';"
     result_check = SqlRunner.run(sql_check)
     return "This username already exists in the database" unless result_check.ntuples == 0
-    sql = "INSERT INTO users (username, funds, monthly_limit, monthly_income) VALUES ('#{@username}', #{@funds}, #{@monthly_limit}, #{@monthly_income}) RETURNING *;"
+    sql = "INSERT INTO users (username, funds, monthly_limit, monthly_income, pay_day) VALUES ('#{@username}', #{@funds}, #{@monthly_limit}, #{@monthly_income}, #{@pay_day}) RETURNING *;"
     result = SqlRunner.run(sql)
     @id = result[0]["id"].to_i
     return nil
@@ -71,6 +72,7 @@ class User
     username = '#{options["username"]}',
     funds = #{options["funds"]}, 
     monthly_limit = #{options["monthly_limit"]},
+    pay_day = #{options["pay_day"]},
     monthly_income = #{options["monthly_income"]}
     WHERE id = #{options["id"]};"
     SqlRunner.run(sql)

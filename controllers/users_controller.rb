@@ -43,7 +43,7 @@ end
 get '/users/:id' do 
   @user = User.find_by_id(params["id"])
   today = Time.new
-  result = Calc.has_visited_this_month?(@user, today)
+  result = Calc.has_visited_this_month?(@user, today, @user.pay_day)
   erb(:"users/users_show")
 end
 

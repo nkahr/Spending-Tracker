@@ -58,7 +58,9 @@ class Calc
   end
 
   #checks whether user has visited and updates funds by monthly_income depending on how many months it has been
-  def self.has_visited_this_month?(user, date) #time object
+  def self.has_visited_this_month?(user, date, pay_day) #time object
+    day_inc = pay_day - 1
+    date -= (day_inc*24*60*60) 
     user_id = user.id
     sql = "SELECT * FROM visits WHERE id = (SELECT MAX(id) FROM visits) AND user_id = #{user_id};"
     result = SqlRunner.run(sql)

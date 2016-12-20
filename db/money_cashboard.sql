@@ -14,6 +14,7 @@ CREATE TABLE users (
   username VARCHAR(255),
   monthly_limit DECIMAL(16,2),
   monthly_income DECIMAL(16,2),
+  pay_day INT8,
   funds DECIMAL(16,2)
 );
 

@@ -2,6 +2,8 @@
 <p>Name: <%= @user.username %></p>
 <p>Funds: <%= @user.funds %> </p>
 <p>Monthly Limit: <%= @user.monthly_limit %> </p>
+<p>Monthly Income: <%= @user.monthly_income %> </p>
+<p>Pay Day: <%= @user.pay_day %>. </p>
 <p><a href="/users/<%= @user.id() %>/edit">Edit User Details</a></p>
 <p><a href="/users/<%= @user.id() %>/transactions">Show Transactions</a></p>
 <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
