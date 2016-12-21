@@ -17,6 +17,20 @@ body {
 
 }
 */
+
+#transactions_table {
+  display: flex;
+
+  flex-direction: column;
+
+}
+#transactions_table tr {
+  color: black;
+  padding: 1em;
+  background-color: #E0E3DA;
+}
+
+
 .aside {
   flex: 2;
   background-color: #383A3F;

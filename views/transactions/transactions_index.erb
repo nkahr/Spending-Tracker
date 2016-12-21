@@ -106,36 +106,36 @@
 
 
 
+    <table id = "transactions_table">
 
 <hr>
 <% for transaction in @transactions %> 
-<nav>
-    <table>
+<!-- <nav> -->
         <tr>
             <td><a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %> £<%= "%.2f" % transaction.amount() %> </a></td>
             <td><%= transaction.tag.label %></td> 
-        </tr>
+        <!-- </tr> -->
 
-        <tr>
+        <!-- <tr> -->
             <td colspan="2"><%= transaction.time() %></td>
-        </tr>
+        <!-- </tr> -->
         
-        <tr>
+        <!-- <tr> -->
             <td colspan="2"><%= transaction.note %></td>
-        </tr>
-        <tr>
+        <!-- </tr> -->
+        <!-- <tr> -->
             <td><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit">Edit</a></td>
         </tr>
-    </table>
-</nav>
+<!-- </nav> -->
 
-<hr>
+<!-- <hr> -->
 
 <% end %>
-</section>
+<!-- </section> -->
+    </table>
 
 
-<section id = "charts">
-<img src=<%= MoneyChart.spending_per_day_bar_chart(@user) %>>
+<!-- <section id = "charts"> -->
+<img src=<%= MoneyChart.spending_per_day_bar_chart(@transactions) %>>
 <img src= <%= MoneyChart.pie_chart(@transactions) %>>
  </section>

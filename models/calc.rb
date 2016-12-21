@@ -116,8 +116,8 @@ class Calc
   end
 
   #returns array of total spent per day of the week
-  def self.spending_per_day(user)
-    transactions = user.transactions
+  def self.spending_per_day(transactions)
+    #transactions = user.transactions
     data = []
     Date::DAYNAMES.each do |day|
       t_in_day = transactions.find_all{|t| Date.parse(t.time).strftime("%A") == day}

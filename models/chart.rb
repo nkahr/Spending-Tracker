@@ -20,8 +20,8 @@ class MoneyChart
     return chart_url
   end
 
-  def self.spending_per_day_bar_chart(user)
-    data = Calc.spending_per_day(user)
+  def self.spending_per_day_bar_chart(transactions)
+    data = Calc.spending_per_day(transactions)
     days = Date::ABBR_DAYNAMES
     chart_url = Gchart.bar({:data => data, :labels => days})
     return chart_url
