@@ -8,6 +8,15 @@ body {
   display: flex;
 }
 
+/*nav {
+  display: flex;
+  flex:0.5;
+  color:blue;
+  background-color: blue;
+  flex-direction: column;
+
+}
+*/
 .aside {
   flex: 2;
   background-color: #383A3F;
@@ -40,7 +49,6 @@ body {
 #charts {
   flex: 3;
   padding:2em;
-  justify-content:space-between;
 }
 
 #charts a {

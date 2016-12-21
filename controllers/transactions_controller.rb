@@ -38,17 +38,7 @@ get '/users/:id/transactions' do
   erb(:"transactions/transactions_index")
 end
 
-# by month 
-# get '/users/:id/transactions/by_month' do
-#   @user = User.find_by_id(params["id"].to_i)
-#   @month = params['month']
-#   @year = params['year']
-#   @transactions = @user.transactions()
-#   @selected = Calc.find_by_month(@transactions, @month, @year)
-#   erb(:"transactions/transactions_by_month")
-# end
-
-#new - need to use merchant class to get drop-down menu
+#new 
 get '/users/:id/transactions/new' do 
   @user= User.find_by_id(params["id"])
   @tags = Tag.sort()
