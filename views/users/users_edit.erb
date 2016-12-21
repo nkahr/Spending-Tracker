@@ -1,3 +1,11 @@
+
+<aside class="aside">
+  <h1>Cash Control</h1>
+</aside>
+
+
+<section id="main">
+
 <h1>Edit User</h1>
 
 <form action= "/users/<%= @user.id %>" method= "post">
@@ -5,7 +13,7 @@
     <p>Username: <input type="text" name="username" value = "<%= @user.username%>"></p>
   </label>  
   <label>
-    <p>Funds: <input type="number" name="funds" value = "<%= @user.funds %>"</p>
+    <p>Funds: <input type="number" name="funds" value = "<%= @user.funds %>"></p>
   </label>  
   <label>
     <p>Monthly Limit: <input type="number" name="monthly_limit" value = "<%= @user.monthly_limit %>"></p>
@@ -17,3 +25,4 @@
     <p><input type="submit" value="SUBMIT"></p>
   </label>
 </form>
+</section>

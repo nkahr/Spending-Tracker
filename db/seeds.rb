@@ -25,7 +25,7 @@ user2 = User.new({
   })
 user2.save()
 
-merchant1 = Merchant.new({"name" => "Chanter"})
+merchant1 = Merchant.new({"name" => "Starbucks"})
 merchant1.save()
 merchant2 = Merchant.new({"name" => "Taquito"})
 merchant2.save()
@@ -41,7 +41,7 @@ merchant7 = Merchant.new({"name" => "Cameo Cinema"})
 merchant7.save()
 merchant8 = Merchant.new({"name" => "Lidl"})
 merchant8.save()
-merchant9 = Merchant.new({"name" => "Starbucks"})
+merchant9 = Merchant.new({"name" => "Chanter"})
 merchant9.save()
 
 tag1 = Tag.new({"label" => "Food"})

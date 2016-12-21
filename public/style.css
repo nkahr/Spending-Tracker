@@ -11,12 +11,13 @@ body {
 .aside {
   flex: 2;
   background-color: #383A3F;
-  color: ivory;
+  color: #F8F8FF;
   padding: 1em;
 }
 
 .aside a {
   color:white;
+  text-decoration:none;
 }
 
 .aside a:visited {
@@ -29,10 +30,10 @@ body {
 
 
 #main {
-  flex: 8;
+  flex: 10;
   height: 100vh;
   color: #383A3F;
-  /*overflow: scroll;*/
+  overflow: scroll;
   padding: 1em;
 }
 
@@ -47,9 +48,12 @@ body {
   margin: 0;
 }
 
-
+.aside h1 {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 40pt;
+}
 
 h1 {
   font-family: 'Cabin Sketch', cursive;
-  font-size: 40pt;
+  font-size: 30pt;
 }

@@ -1,9 +1,18 @@
+<aside class="aside">
+  <h1>Cash Control</h1>
+  <p><a href="/users/<%= @user.id() %>">Home</a></p>
+  <p><a href="/users/<%= @user.id() %>/transactions">See Transactions</a></p>
+  <p><a href="/users/<%= @user.id %>/merchants/new">Add New Merchant</a></p>
+  <p><a href="/users/<%= @user.id %>/tags/new">Add New Tag</a></p>
+  <p><a href="/users">Change User</a></p>
+</aside>
+
+<section id="main">
+
 <h1>Add New Standing Order</h1>
 <form action= "/users/<%= @user.id %>/transactions/new_standing_order" method="post">
 
 
-<p><a href="/users/<%= @user.id %>/merchants/new">Add New Merchant</a></p>
-<p><a href="/users/<%= @user.id %>/tags/new">Add New Tag</a></p>
 
   <label>
     <p>
@@ -42,3 +51,4 @@
   <input type = "submit" value = "Submit"/>
 
 </form>
+</section>

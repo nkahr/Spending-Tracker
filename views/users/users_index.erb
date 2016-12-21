@@ -1,15 +1,24 @@
+<aside class="aside">
+  <h1>Cash Control</h1>
 <p><a href="/users/new">Register</a></p>
+</aside>
+
+
+<section id="main">
+
 <h1>All Users</h1>
+
 <hr>
 
 <% for user in @users %> 
 
-<p>Name: <%= user.username() %> </p>
-<p>Funds: £<%= "%.2f" % user.funds() %> </p>
-<p>Monthy Limit: £<%= "%.2f" % user.monthly_limit %></p>
-<p>Monthy Income: £<%= "%.2f" % user.monthly_income %></p>
-<p><a href="/users/<%= user.id %>">See Account</a></p>
+  <h2><%= user.username() %> </h2>
+  <p>Funds: £<%= "%.2f" % user.funds() %> </p>
+  <p>Monthy Limit: £<%= "%.2f" % user.monthly_limit %></p>
+  <p>Monthy Income: £<%= "%.2f" % user.monthly_income %></p>
+  <p><a href="/users/<%= user.id %>">See Account</a></p>
 
-<hr>
+  <hr>
 
 <% end %>
+</section>

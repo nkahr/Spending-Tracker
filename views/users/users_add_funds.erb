@@ -1,3 +1,11 @@
+<aside class="aside">
+  <h1>Cash Control</h1>
+  <p><a href="/users/<%= @user.id() %>">Home</a></p>
+  <p><a href="/users">Change User</a></p>
+</aside>
+
+<section id="main">
+
 <h1>Add funds</h1>
 
 <form action= "/users/<%=@user.id%>/funds_added" method= "post">
@@ -11,3 +19,4 @@
   </label>
 
 </form>
+</section>

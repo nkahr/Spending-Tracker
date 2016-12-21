@@ -38,15 +38,15 @@ get '/users/:id/transactions' do
   erb(:"transactions/transactions_index")
 end
 
-# by month - make a new method to search for transactions by month 
-get '/users/:id/transactions/by_month' do
-  @user = User.find_by_id(params["id"].to_i)
-  @month = params['month']
-  @year = params['year']
-  @transactions = @user.transactions()
-  @selected = Calc.find_by_month(@transactions, @month, @year)
-  erb(:"transactions/transactions_by_month")
-end
+# by month 
+# get '/users/:id/transactions/by_month' do
+#   @user = User.find_by_id(params["id"].to_i)
+#   @month = params['month']
+#   @year = params['year']
+#   @transactions = @user.transactions()
+#   @selected = Calc.find_by_month(@transactions, @month, @year)
+#   erb(:"transactions/transactions_by_month")
+# end
 
 #new - need to use merchant class to get drop-down menu
 get '/users/:id/transactions/new' do 
@@ -88,6 +88,7 @@ end
 
 #show (when you click on a single transaction)
 get '/users/:id/transactions/:t_id' do 
+  @user = User.find_by_id(@user_id)
   @user_id = params["id"].to_i
   @transaction = Transaction.find_by_id(params["t_id"])
   @id = params["t_id"].to_i
@@ -106,6 +107,7 @@ end
 get '/users/:id/transactions/:t_id/edit' do 
   @user = User.find_by_id(params["id"])
   @transaction = Transaction.find_by_id(params["t_id"])
+  @amount_before = @transaction.amount
   @merchant = Merchant.find_by_id(@transaction.merchant_id)
   @merchants = Merchant.all
   @merchant_name = Merchant.find_by_id(@transaction.merchant_id).name
@@ -117,8 +119,14 @@ end
 
 #update 
 post '/users/:id/transactions/:t_id' do 
+  @user = User.find_by_id(params["id"])
+  @transaction = Transaction.find_by_id(params["t_id"])
+  @amount_before = @transaction.amount
   params["user_id"] = params["id"]
   params["id"] = params["t_id"]
   params["t_id"] = nil
+  @amount_after = params["amount"].to_i
+  @user.change_funds(@amount_before - @amount_after)
   Transaction.update(params)
+  redirect to ("/users/#{params["user_id"]}/transactions")
 end

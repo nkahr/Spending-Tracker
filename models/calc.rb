@@ -75,7 +75,7 @@ class Calc
     SqlRunner.run(sql2)
   end
 
-
+  # checks whether standing orders have been paid and creates new transaction(s) if they haven't
   def self.pay_standing_orders(user, date)
     standing_orders = user.standing_orders #MAKE THIS METHOD 
     for standing_order in standing_orders
@@ -115,14 +115,7 @@ class Calc
     end
   end
 
-  def new_transaction(options)
-    transaction = Transaction.new(options)
-    transaction.save()
-    @funds -= transaction.amount()
-    return transaction
-  end
-
-
+  #returns array of total spent per day of the week
   def self.spending_per_day(user)
     transactions = user.transactions
     data = []

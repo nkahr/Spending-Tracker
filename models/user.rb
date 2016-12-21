@@ -20,8 +20,7 @@ class User
   def new_transaction(options)
     transaction = Transaction.new(options)
     transaction.save()
-    @funds -= transaction.amount()
-    self.update()
+    self.change_funds(-transaction.amount)
     return transaction
   end
 
@@ -29,6 +28,11 @@ class User
     standing_order = StandingOrder.new(options)
     standing_order.save()
     return standing_order
+  end
+
+  def change_funds(amount)
+    @funds += amount
+    self.update()
   end
 
   def save()

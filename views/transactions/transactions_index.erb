@@ -1,8 +1,10 @@
 
 <aside class="aside">
+  <h1>Cash Control</h1>
   <p><a href="/users/<%= @user.id() %>">Home</a></p>
   <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
   <p><a href="/users/<%= @user.id() %>/transactions/new_standing_order">Add New Standing Order</a></p>
+  <p><a href="/users/<%= @user.id() %>/add_funds">Add Funds</a></p>
   <p><a href="/users">Change User</a></p>
   <p>Funds: £<%= "%.2f" % @user.funds %></p>
 </aside>
@@ -24,8 +26,19 @@
 
 
 
-<table></table>
-<h2>Search by Month</h2>
+
+<table>
+<tr>
+  <th>Search by Month</th>
+  <th>Sort</th>
+  <th>Search by Tag</th>
+
+
+</tr>
+
+<tr>
+<td>
+<!-- <h2>Search by Month</h2> -->
 <form action= "/users/<%= @user_id %>/transactions" method= "get">
   <label>
     <p>
@@ -50,9 +63,12 @@
   </select>
 </p>
 </label>
+</td>
 
 
-<h2>Sort</h2>
+
+<td>
+<!-- <h2>Sort</h2> -->
   <label>
     <p>
       Sort by: <select name="sort_by">
@@ -64,10 +80,10 @@
     </select>
   </p>
 </label>
+</td>
 
-
-
-<h2>Search by Tag</h2>
+<td>
+<!-- <h2>Search by Tag</h2> -->
 <label>
    <p>
      Tag: <select name="tag_id">
@@ -78,12 +94,20 @@
    </select>  
    </p>
  </label>
+</td>
 
+<td>
 <label>
   <p><input type="submit" value="APPLY"></p>
 </label>
 
 </form>
+</td>
+
+</tr>
+</table>
+
+
 
 
 
@@ -118,6 +142,4 @@
 <section id = "charts">
 <img src=<%= MoneyChart.spending_per_day_bar_chart(@user) %>>
 <img src= <%= MoneyChart.pie_chart(@transactions) %>>
-<!-- <img src=<%= MoneyChart.spending_per_category_bar_chart(@user) %>>
- -->
-</section>
+ </section>

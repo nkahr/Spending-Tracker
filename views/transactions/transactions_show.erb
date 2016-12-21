@@ -1,3 +1,13 @@
+<aside class="aside">
+  <h1>Cash Control</h1>
+  <p><a href="/users/<%= @user.id() %>">Home</a></p>
+  <p><a href="/users/<%= @user.id() %>/transactions">See Transactions</a></p>
+  <p><a href="/users/<%= @user_id %>/transactions/<%= @id %>/edit">Edit</a></p>
+  <p><a href="/users">Change User</a></p>
+</aside>
+
+<section id="main">
+<h1>Transaction Details</h1>
 <p>Merchant: <%= Merchant.find_by_id(@transaction.merchant_id).name %></p>
 <p>Amount: £<%= "%.2f" % @transaction.amount %> </p>
 <p>Tag: <%= Tag.find_by_id(@transaction.tag_id).label %> </p>
@@ -9,3 +19,4 @@
     <p><input type="submit" value="DELETE"></p>
   </label>
 </form>
+</section>

@@ -27,22 +27,4 @@ class MoneyChart
     return chart_url
   end
 
-
-  # def self.spending_per_category_bar_chart(user)
-  #   transactions = user.transactions
-  #   days = Date::ABBR_DAYNAMES
-  #   data_arr = []
-  #   tags = transactions.map{|t| Tag.find_by_id(t.tag_id)}
-  #   Date::DAYNAMES.each do |day|
-  #     t_in_day = transactions.find_all{|t| Date.parse(t.time).strftime("%A") == day}
-  #     data = []
-  #     for tag in tags 
-  #       selected = t_in_day.find_all{|transaction| transaction.tag_id == tag.id}      
-  #       total = selected.inject(0){|sum, t| sum += t.amount}
-  #       data.push(total.round(2))
-  #     end
-  #     data_arr.push(data)
-  #   end
-  #   chart_url = Gchart.bar({:data => data_arr, :labels => days, :bar_colors => ['FF0000', '00FF00', 'FF0000', '00FF00', 'FF0000', '00FF00', 'FF0000'] })
-  # end
 end

@@ -1,6 +1,16 @@
+<aside class="aside">
+  <h1>Cash Control</h1>
+  <p><a href="/users">Change User</a></p>
+</aside>
+
+
+<section id="main">
+
 <%if @result.nil?%>
 <h1>Thanks for registering</h1>
 <%else%>
 <h1><%=@result%></h1>
 <%end%>
 <p><a href="/users/<%= @user.id %>">Home</a></p>
+</section>
+

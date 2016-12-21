@@ -1,19 +1,28 @@
-<h1>Home</h1>
-<p>Name: <%= @user.username %></p>
-<p>Funds: <%= "%.2f" % @user.funds %> </p>
-<p>Monthly Limit: <%= "%.2f" % @user.monthly_limit %> </p>
-<p>Monthly Income: <%= "%.2f" % @user.monthly_income %> </p>
-<p>Pay Day: <%= Calc.ordinalise(@user.pay_day) %> </p>
-<p><a href="/users/<%= @user.id() %>/edit">Edit User Details</a></p>
-<p><a href="/users/<%= @user.id() %>/transactions">Show Transactions</a></p>
-<p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
-<p><a href="/users/<%= @user.id() %>/add_funds">Add Funds</a></p>
-<p>Total spent: <%= @user.total() %></p>
+<aside class="aside">
+  <h1>Cash Control</h1>
+  <p><a href="/users/<%= @user.id() %>/edit">Edit User Details</a></p>
+  <p><a href="/users/<%= @user.id() %>/transactions">See Transactions</a></p>
+  <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
+  <p><a href="/users/<%= @user.id() %>/add_funds">Add Funds</a></p>
+  <p><a href="/users">Change User</a></p>
+</aside>
 
-<form action= "/users/<%= @user.id() %>/delete" method= "post">
-  <label>
-    <p><input type="submit" value="delete"></p>
-  </label>
-</form>
+<section id="main">
 
+  <h1>Home</h1>
+  <h2><%= @user.username %></h2>
+  <p>Funds: £ <%= "%.2f" % @user.funds %> </p>
+  <p>Monthly Limit: £<%= "%.2f" % @user.monthly_limit %> </p>
+  <p>Monthly Income: £<%= "%.2f" % @user.monthly_income %> </p>
+  <p>Pay Day: <%= Calc.ordinalise(@user.pay_day) %> </p>
+
+  <p>Total spent: £<%= @user.total() %></p>
+
+  <form action= "/users/<%= @user.id() %>/delete" method= "post">
+    <label>
+      <p><input type="submit" value="delete"></p>
+    </label>
+  </form>
+
+</section>
 
