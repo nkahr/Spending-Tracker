@@ -5,6 +5,7 @@ require_relative( '../models/tag.rb' )
 
 #index
 get '/users/:id/tags' do 
+  @user= User.find_by_id(params["id"])
   @tags = Tag.all()
   erb(:"tags/tags_index")
 end

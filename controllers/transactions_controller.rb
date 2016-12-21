@@ -78,8 +78,8 @@ end
 
 #show (when you click on a single transaction)
 get '/users/:id/transactions/:t_id' do 
-  @user = User.find_by_id(@user_id)
   @user_id = params["id"].to_i
+  @user = User.find_by_id(@user_id)
   @transaction = Transaction.find_by_id(params["t_id"])
   @id = params["t_id"].to_i
   erb(:"transactions/transactions_show")
@@ -89,6 +89,8 @@ end
 post '/users/:id/transactions/:t_id/delete' do 
   @id = params["t_id"].to_i #transaction id 
   @user_id = params["id"].to_i
+  @user = User.find_by_id(@user_id)
+  @user.change_funds(Transaction.find_by_id(@id).amount)
   Transaction.delete(@id) 
   redirect to("/users/#{@user_id}/transactions")
 end

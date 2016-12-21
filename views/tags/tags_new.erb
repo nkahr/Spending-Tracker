@@ -1,19 +1,24 @@
 <aside class="aside">
   <h1>Cash Control</h1>
+  <p><a href="/users/<%= @user.id() %>">Home</a></p>
+  <p><a href="/users/<%= @user.id() %>/transactions">See Transactions</a></p>
 </aside>
 
 
+<section id="main">
 
-<h1>Add New Tag</h1>
+<h1>Add New Category</h1>
 <form action= "/users/<%= @user.id %>/tags" method="post">
   
 
 <label>
-  <p>Label: <input type="text" name="label"></p>
+  <p>Category: <input type="text" name="label"></p>
 </label>
 
 
-<input type = "submit" value = "Submit"/>
+<input type = "submit" value = "SUBMIT"/>
 
 
 </form>
+
+</section>

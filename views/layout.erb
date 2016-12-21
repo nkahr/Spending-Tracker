@@ -3,7 +3,14 @@
 <head>
   <title>Cash Control</title>
   <nav>
-    something
+    <%if @user%>
+    <p>Funds: <%=@user.funds%>   </p>
+    <%else%>
+       
+    <%end%>
+    <br>
+
+    <p><a href="/users">Change User</a></p>
 
 
   </nav>

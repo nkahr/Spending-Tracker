@@ -6,16 +6,15 @@
   <p><a href="/users/<%= @user.id() %>/transactions/new_standing_order">Add New Standing Order</a></p>
   <p><a href="/users/<%= @user.id() %>/add_funds">Add Funds</a></p>
   <p><a href="/users">Change User</a></p>
-  <p>Funds: £<%= "%.2f" % @user.funds %></p>
+ <!-- <p>Funds: £<%= "%.2f" % @user.funds %></p> -->
 </aside>
-
 
 <section id="main">
 <h1>Transactions</h1>
 <hr>
 <h2>Total Money Spent: £<%= "%.2f" % @total %></h2>
 <%if Calc.amount_spent_this_month(@user) > @user.monthly_limit%> 
-<h3>WARNING: You've spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
+<h3 id = "warning">WARNING: You've spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
 <%else%>
 <h3>You've spent <%= Calc.percentage_of_limit_spent(@user) %>% of your monthly limit!</h3>
 <%end%>
@@ -24,7 +23,7 @@
 <h4><%=@text1%></h4>
 <h4><%=@text2%></h4>
 
-<table>
+<!-- <table>
 <tr>
   <th>Search by Month</th>
   <th>Sort</th>
@@ -33,13 +32,15 @@
 </tr>
 
 <tr>
-<td>
+<td> -->
 <!-- <h2>Search by Month</h2> -->
+<div class="sort">
+
 <form action= "/users/<%= @user_id %>/transactions" method= "get">
   <label>
-    <p>
-      Month: <select name="month">
-      <option value= ""> select </option>
+    <p class="sort">
+       Search by month <select name="month">
+      <option value= ""> month </option>
       <%for year in @month_groups.keys%>
         <%for month in @month_groups[year].keys%>
           <option value= <%= month %>> <%= month %> </option>
@@ -48,23 +49,25 @@
     </select>
   </p>
 </label>
+</div>
 
+<div class="sort">
 <label>
   <p>
-    Year: <select name="year">
-    <option value= ""> select </option>
+     <select name="year">
+    <option value= ""> year </option>
     <%for year in @month_groups.keys%>
       <option value= <%= year %>> <%= year %> </option>
     <%end%>  
   </select>
 </p>
 </label>
-</td>
+</div>
+<!-- </td> -->
 
-
-
-<td>
+<!-- <td> -->
 <!-- <h2>Sort</h2> -->
+<div class="sort">
   <label>
     <p>
       Sort by: <select name="sort_by">
@@ -76,13 +79,15 @@
     </select>
   </p>
 </label>
-</td>
+</div>
+<!-- </td> -->
 
-<td>
+<!-- <td> -->
 <!-- <h2>Search by Tag</h2> -->
+<div class="sort">
 <label>
    <p>
-     Tag: <select name="tag_id">
+     Search by Category: <select name="tag_id">
      <option value = "">select</option>
      <%for tag in @tags%>
      <option value= <%= tag.id %>> <%=tag.label %> </option>
@@ -90,18 +95,21 @@
    </select>  
    </p>
  </label>
-</td>
+ </div>
+<!-- </td> -->
 
-<td>
+<!-- <td> -->
+<div class="sort">
 <label>
   <p><input type="submit" value="APPLY"></p>
 </label>
+</div>
 
 </form>
-</td>
-
+<!-- </td> -->
+<!-- 
 </tr>
-</table>
+</table> -->
 
 
 
@@ -112,7 +120,8 @@
 <% for transaction in @transactions %> 
 <!-- <nav> -->
         <tr>
-            <td><a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %> £<%= "%.2f" % transaction.amount() %> </a></td>
+            <td><a href="/users/<%= @user.id() %>/transactions/<%=transaction.id%>"><%= transaction.merchant.name() %>  </a></td>
+            <td>£<%= "%.2f" % transaction.amount() %></td> 
             <td><%= transaction.tag.label %></td> 
         <!-- </tr> -->
 
@@ -125,6 +134,11 @@
         <!-- </tr> -->
         <!-- <tr> -->
             <td><a href="/users/<%= @user.id() %>/transactions/<%= transaction.id %>/edit">Edit</a></td>
+            <td><form action= "/users/<%= @user.id %>/transactions/<%= transaction.id %>/delete" method= "post">
+  <label>
+  <input type="submit" value="DELETE">
+  </label>
+</form></td>
         </tr>
 <!-- </nav> -->
 

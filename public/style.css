@@ -8,28 +8,61 @@ body {
   display: flex;
 }
 
-/*nav {
+nav {
   display: flex;
-  flex:0.5;
-  color:blue;
-  background-color: blue;
-  flex-direction: column;
+  flex:0.3;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #f2f2f2;
+  /*background-color: #8b8687;*/
+  /*background-color: #e3dede;*/
+  /*margin: 1pt;*/
+  border-width: 2px;
+  border-style: solid;
+  border-color: #383A3F;
 
 }
-*/
+
+label {text-decoration: none;}
+
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 
 #transactions_table {
   display: flex;
-
+  width: 90%;
   flex-direction: column;
+  padding: 15px;
 
 }
 #transactions_table tr {
   color: black;
-  padding: 1em;
-  background-color: #E0E3DA;
+  padding: 5em;
+
+  /*background-color: #aacfd0;*/
+  /*background-color: #E0E3DA;*/
+  font-size: 15pt;
+  margin: 5em;
+
 }
 
+th, td {
+    padding: 15px;
+    }
+
+nav a {
+  padding: 15px;
+  font-size: 20px;
+}
+
+#warning {
+  background-color:white;
+  color:#ff7473;
+}
 
 .aside {
   flex: 2;
@@ -39,12 +72,13 @@ body {
 }
 
 .aside a {
-  color:white;
+  color:#aacfd0;
   text-decoration:none;
+  font-size: 15px;
 }
 
 .aside a:visited {
-  color:white;
+  color:#aacfd0;
 }
 
 .aside a:hover {
@@ -60,22 +94,28 @@ body {
   padding: 1em;
 }
 
-#charts {
-  flex: 3;
-  padding:2em;
-}
-
-#charts a {
-  padding:4em;
-  margin: 0;
-}
 
 .aside h1 {
-  font-family: 'Cabin Sketch', cursive;
+/*  font-family: 'Cabin Sketch', cursive;*/
+  color: #79a8a9;
   font-size: 40pt;
 }
 
 h1 {
   font-family: 'Cabin Sketch', cursive;
   font-size: 30pt;
+}
+
+
+a {
+  text-decoration:none;
+  color: #79a8a9;
+  font-weight: bold;
+
+}
+
+
+.sort {
+  display: inline-block;
+  width: 15%;
 }

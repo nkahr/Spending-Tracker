@@ -4,7 +4,9 @@
   <p><a href="/users/<%= @user.id() %>/transactions">See Transactions</a></p>
   <p><a href="/users/<%= @user.id() %>/transactions/new">Add New Transaction</a></p>
   <p><a href="/users/<%= @user.id() %>/add_funds">Add Funds</a></p>
-  <p><a href="/users">Change User</a></p>
+  <p><a href="/users/<%= @user.id() %>/tags">See All Categories</a></p>
+  <p><a href="/users/<%= @user.id() %>/merchants">See All Merchants</a></p>
+  <!-- <p><a href="/users">Change User</a></p> -->
 </aside>
 
 <section id="main">
@@ -20,7 +22,7 @@
 
   <form action= "/users/<%= @user.id() %>/delete" method= "post">
     <label>
-      <p><input type="submit" value="delete"></p>
+      <p><input type="submit" value="DELETE"></p>
     </label>
   </form>
 
