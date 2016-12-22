@@ -8,6 +8,16 @@ body {
   display: flex;
 }
 
+.sort {
+  display:flex;
+  flex-direction:row;
+  align-items:flex-start;
+}
+
+.sort p {
+  flex-direction:row;
+}
+
 nav {
   display: flex;
   flex:0.3;

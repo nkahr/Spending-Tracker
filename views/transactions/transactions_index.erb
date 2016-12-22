@@ -37,9 +37,9 @@
 <div class="sort">
 
 <form action= "/users/<%= @user_id %>/transactions" method= "get">
+    <p>
   <label>
-    <p class="sort">
-       Search by month <select name="month">
+      Date: <select name="month">
       <option value= ""> month </option>
       <%for year in @month_groups.keys%>
         <%for month in @month_groups[year].keys%>
@@ -47,27 +47,27 @@
         <%end%>  
       <%end%>  
     </select>
-  </p>
+  <!-- </p> -->
 </label>
-</div>
+<!-- </div> -->
 
-<div class="sort">
+<!-- <div class="sort"> -->
 <label>
-  <p>
+  <!-- <p> -->
      <select name="year">
     <option value= ""> year </option>
     <%for year in @month_groups.keys%>
       <option value= <%= year %>> <%= year %> </option>
     <%end%>  
   </select>
-</p>
 </label>
-</div>
+</p>
+<!-- </div> -->
 <!-- </td> -->
 
 <!-- <td> -->
 <!-- <h2>Sort</h2> -->
-<div class="sort">
+<!-- <div class="sort"> -->
   <label>
     <p>
       Sort by: <select name="sort_by">
@@ -79,15 +79,15 @@
     </select>
   </p>
 </label>
-</div>
+<!-- </div> -->
 <!-- </td> -->
 
 <!-- <td> -->
 <!-- <h2>Search by Tag</h2> -->
-<div class="sort">
+<!-- <div class="sort"> -->
 <label>
    <p>
-     Search by Category: <select name="tag_id">
+     Category: <select name="tag_id">
      <option value = "">select</option>
      <%for tag in @tags%>
      <option value= <%= tag.id %>> <%=tag.label %> </option>
@@ -95,11 +95,11 @@
    </select>  
    </p>
  </label>
- </div>
+ <!-- </div> -->
 <!-- </td> -->
 
 <!-- <td> -->
-<div class="sort">
+<!-- <div class="sort"> -->
 <label>
   <p><input type="submit" value="APPLY"></p>
 </label>
